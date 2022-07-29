@@ -14,6 +14,8 @@ import { MyProfileComponent } from './components/my-profile/my-profile.component
 import { UsersComponent } from './components/admin/users/users.component';
 import { TuristicsCentersComponent } from './components/admin/turistics-centers/turistics-centers.component';
 import { SearchUserPipe } from './pipes/user/search-user.pipe';
+import { SearchTuristicCenterNamePipe } from './pipes/turisticCenter/search-turistic-center-name.pipe';
+import { SearchTuristicCenterDepartmentPipe } from './pipes/turisticCenter/search-turistic-center-department.pipe';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { SearchUserPipe } from './pipes/user/search-user.pipe';
     MyProfileComponent,
     UsersComponent,
     TuristicsCentersComponent,
-    SearchUserPipe
+    SearchUserPipe,
+    SearchTuristicCenterNamePipe,
+    SearchTuristicCenterDepartmentPipe
   ],
   imports: [
     BrowserModule,

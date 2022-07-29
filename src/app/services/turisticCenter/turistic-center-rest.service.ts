@@ -16,8 +16,45 @@ export class TuristicCenterRestService {
 
   //* Administrador ---------------------------------------------------------------------------------------
   getTuristicsCentersOnlyAdmin() {
-    return this.http.get(environment.baseUrl + 'turisticCenter/getTuristicsCenters_OnlyAdmin', {
-      headers: this.httpOptions,
-    });
+    return this.http.get(
+      environment.baseUrl + 'turisticCenter/getTuristicsCenters_OnlyAdmin',
+      {
+        headers: this.httpOptions,
+      }
+    );
+  }
+
+  getTuristicCenterOnlyAdmin(idTuristicCenter: string) {
+    return this.http.get(
+      environment.baseUrl +
+        'turisticCenter/getTuristicCenter_OnlyAdmin/' +
+        idTuristicCenter,
+      {
+        headers: this.httpOptions,
+      }
+    );
+  }
+
+  updateTuristicCenterOnlyAdmin(params: {}, idTuristicCenter: string) {
+    return this.http.put(
+      environment.baseUrl +
+        'turisticCenter/updateTuristicCenter_OnlyAdmin/' +
+        idTuristicCenter,
+      params,
+      {
+        headers: this.httpOptions,
+      }
+    );
+  }
+
+  deleteTuristicCenterOnlyAdmin(idTuristicCenter: string) {
+    return this.http.delete(
+      environment.baseUrl +
+        'turisticCenter/deleteTuristicCenter_OnlyAdmin/' +
+        idTuristicCenter,
+      {
+        headers: this.httpOptions,
+      }
+    );
   }
 }

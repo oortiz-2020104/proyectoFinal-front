@@ -1,0 +1,39 @@
+<app-navbar></app-navbar>
+
+<div class="bgimg w3-display-container w3-animate-opacity w3-text-white" style="margin-top: -53px;">
+    <div class="w3-display-middle">
+        <h1 id="homeHeader" class="w3-jumbo w3-animate-top">Planificador de rutas</h1>
+        <hr class="w3-border-white" style="margin: auto;">
+        <p class="w3-large w3-center pt-2" *ngIf="!token">
+            <button routerLink="/login" type="button" class="btn btn-lg btn-outline-light m-1" style="width: 150px;">Inicia
+                sesión</button>
+            <button routerLink="/register" type="button" class="btn btn-lg btn-outline-light m-1"
+                style="width: 150px;">Registrarse</button>
+        </p>
+        <hr class="w3-border-white" style="margin: auto;">
+        <p class="w3-large w3-center pt-2" *ngIf="!token">
+            <button routerLink="" type="button" class="btn btn-lg btn-outline-light m-1"
+                style="width: 200px;">Explorar</button>
+        </p>
+
+        <p class="w3-large w3-center pt-2" *ngIf="token && userData.role == 'CLIENT'">
+            <button routerLink="" type="button" class="btn btn-lg btn-outline-light m-1" style="width: 150px;">Mis
+                rutas</button>
+            <button routerLink="" type="button" class="btn btn-lg btn-outline-light m-1"
+                style="width: 175px;">Explorar</button>
+        </p>
+
+        <p class="w3-large w3-center pt-2" *ngIf="token && userData.role == 'CONTRIBUTOR'">
+            <button routerLink="" type="button" class="btn btn-lg btn-outline-light m-1"
+                style="width: 200px;">Mis contribuciones</button>
+        </p>
+
+        <p class="w3-large w3-center pt-2" *ngIf="token && userData.role == 'ADMIN'">
+            <button routerLink="/admin/users" type="button" class="btn btn-lg btn-outline-light m-1"
+                style="width: 200px;">Administrar usuarios</button>
+            <button routerLink="/admin/turisticsCenters" type="button" class="btn btn-lg btn-outline-light m-1"
+                style="width: 200px;">Administrar centros turísticos</button>
+        </p>
+
+    </div>
+</div>

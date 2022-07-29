@@ -1,0 +1,75 @@
+<app-navbar></app-navbar>
+<div class="text-center m-3">
+    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAddDepartment">Agregar
+        departamento</button>
+</div>
+<hr>
+<div class="row justify-content-center px-4">
+    <div *ngFor="let department of departments" class="card m-2" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">{{ department.name }}</h5>
+            <p class="card-subtitle mb-2 text-muted fst-italic">{{ department._id }}</p>
+            <p class="card-subtitle mb-2"> Descripción: {{ department.description }} </p>
+            <div class="btn-group d-flex" role="group">
+                <button (click)="getDepartment(department._id)" class="btn btn-warning flex-grow-1"
+                    data-bs-toggle="offcanvas" data-bs-target="#offcanvasGetDepartment"
+                    aria-controls="offcanvasGetDepartment">Editar</button>
+                <button (click)="deleteDepartment(department._id)" class="btn btn-danger">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal add company-->
+<div class="modal fade" id="modalAddDepartment" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Agregar departamento</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form (ngSubmit)="addUserAdmin(addDepartmentForm)" #addDepartmentForm="ngForm">
+                    <div class="mb-3">
+                        <label class="form-label">Nombre</label>
+                        <input [(ngModel)]="department.name" name="name" type="text" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Descripción</label>
+                        <input [(ngModel)]="department.description" name="description" type="text" class="form-control">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Descartar
+                            cambios</button>
+                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Agregar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Offcanvas get user-->
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasGetDepartment"
+    aria-labelledby="offcanvasGetDepartment">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Editar departamento</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <form (ngSubmit)="updateDepartment()" *ngIf="departmentGetData">
+            <div class="mb-3">
+                <label class="form-label">Nombre</label>
+                <input [(ngModel)]="departmentGetData.name" name="name" type="text" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Descripción</label>
+                <input [(ngModel)]="departmentGetData.description" name="description" type="text" class="form-control">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="offcanvas">Descartar cambios</button>
+                <button type="submit" class="btn btn-primary" data-bs-dismiss="offcanvas">Actualizar cambios</button>
+            </div>
+        </form>
+    </div>
+</div>

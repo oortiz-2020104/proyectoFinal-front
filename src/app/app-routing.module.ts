@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CategoriesComponent } from './components/admin/categories/categories.component';
+import { DepartmentsComponent } from './components/admin/departments/departments.component';
 
 import { TuristicsCentersComponent } from './components/admin/turistics-centers/turistics-centers.component';
 import { UsersComponent } from './components/admin/users/users.component';
@@ -26,6 +28,16 @@ const routes: Routes = [
     path: 'admin/turisticsCenters',
     canActivate: [AdminGuard],
     component: TuristicsCentersComponent,
+  },
+  {
+    path: 'admin/departments',
+    canActivate: [AdminGuard],
+    component: DepartmentsComponent,
+  },
+  {
+    path: 'admin/categories',
+    canActivate: [AdminGuard],
+    component: CategoriesComponent,
   },
 
   { path: '**', component: NotFoundComponent },

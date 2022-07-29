@@ -16,6 +16,8 @@ import { TuristicsCentersComponent } from './components/admin/turistics-centers/
 import { SearchUserPipe } from './pipes/user/search-user.pipe';
 import { SearchTuristicCenterNamePipe } from './pipes/turisticCenter/search-turistic-center-name.pipe';
 import { SearchTuristicCenterDepartmentPipe } from './pipes/turisticCenter/search-turistic-center-department.pipe';
+import { CategoriesComponent } from './components/admin/categories/categories.component';
+import { DepartmentsComponent } from './components/admin/departments/departments.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { SearchTuristicCenterDepartmentPipe } from './pipes/turisticCenter/searc
     TuristicsCentersComponent,
     SearchUserPipe,
     SearchTuristicCenterNamePipe,
-    SearchTuristicCenterDepartmentPipe
+    SearchTuristicCenterDepartmentPipe,
+    CategoriesComponent,
+    DepartmentsComponent
   ],
   imports: [
     BrowserModule,

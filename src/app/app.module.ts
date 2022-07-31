@@ -24,6 +24,7 @@ import { MyContributionsComponent } from './components/contributor/my-contributi
 import { ExploreComponent } from './components/client/explore/explore.component';
 import { SearchTuristicCenterCategoryPipe } from './pipes/turisticCenter/search-turistic-center-category.pipe';
 import { MyTripsComponent } from './components/client/my-trips/my-trips.component';
+import { SearchTripPipe } from './pipes/trip/search-trip.pipe';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { MyTripsComponent } from './components/client/my-trips/my-trips.componen
     MyContributionsComponent,
     ExploreComponent,
     SearchTuristicCenterCategoryPipe,
-    MyTripsComponent
+    MyTripsComponent,
+    SearchTripPipe
   ],
   imports: [
     BrowserModule,

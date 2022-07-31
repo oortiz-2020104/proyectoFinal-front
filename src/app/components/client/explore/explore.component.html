@@ -3,13 +3,13 @@
 <div class="container px-4 mx-auto py-5">
     <h2 class="pb-2 border-bottom">Explorar</h2>
 
-    <div class="d-flex flex-xxl-row flex-sm-column  flex-wrap">
-        <div class="input-group m-2 flex-nowrap" style="min-width: 115.7px; width: 20vw;">
+    <div class="d-flex flex-wrap">
+        <div class="input-group m-2 flex-nowrap" style="width: 300px;">
             <span class="input-group-text">Nombre</span>
             <input [(ngModel)]="searchTuristicCenterName" type="text" class="form-control">
         </div>
 
-        <div class="input-group m-2 flex-nowrap" style="min-width: 115.7px; width: 20vw;">
+        <div class="input-group m-2 flex-nowrap" style="width: 300px;">
             <span class="input-group-text">Departamento</span>
             <select [(ngModel)]="searchTuristicCenterDepartment" class="form-select">
                 <option value="">Todos</option>
@@ -18,7 +18,7 @@
             </select>
         </div>
 
-        <div class="input-group m-2 flex-nowrap" style="min-width: 115.7px; width: 20vw;">
+        <div class="input-group m-2 flex-nowrap" style="width: 300px;">
             <span class="input-group-text">Categoría</span>
             <select [(ngModel)]="searchTuristicCenterCategory" class="form-select">
                 <option value="">Todas</option>
@@ -28,16 +28,14 @@
         </div>
     </div>
 
-
-
     <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 m-0">
         <div *ngFor="let turisticCenter of turisticsCenters 
             | searchTuristicCenterName: searchTuristicCenterName 
             | searchTuristicCenterDepartment: searchTuristicCenterDepartment 
             | searchTuristicCenterCategory: searchTuristicCenterCategory" class="col">
-            <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg">
+            <div class="card card-cover h-100 overflow-hidden rounded-5 ">
 
-                <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                <div class="d-flex flex-column h-100 p-5 pb-3">
                     <div>
                         <img *ngIf="turisticCenter.hasOwnProperty('image') == false"
                             src="../../../../assets/dummy_400x200_ffffff_cccccc_no-image.png" class="img-fluid rounded"
@@ -46,11 +44,21 @@
                             class="img-fluid rounded" style="max-height: 200px;">
                     </div>
                     <h2 class="pt-3 display-6 lh-1 fw-bold mb-3">{{ turisticCenter.name }}</h2>
+
+                    <ul class="d-flex list-unstyled">
+                        <li class="d-flex align-items-center">
+                            <a class="text-break" href="{{ turisticCenter.link }}" target="_blank"
+                                rel="noopener noreferrer">{{
+                                turisticCenter.link }}</a>
+                        </li>
+                    </ul>
+
                     <ul class="d-flex list-unstyled mt-auto mb-1">
                         <li class="d-flex align-items-center">
                             Precio: Q{{ turisticCenter.price }}
                         </li>
                     </ul>
+
                     <ul class="d-flex list-unstyled mb-0">
                         <li class="d-flex align-items-center">
                             {{ turisticCenter.description }}
@@ -59,21 +67,94 @@
                     <hr>
                     <ul class="d-flex list-unstyled">
                         <li class="d-flex align-items-center me-3">
-                            <small>Departamento: {{ turisticCenter.department.name }}</small>
+                            Departamento: {{ turisticCenter.department.name }}
                         </li>
                     </ul>
                     <ul class="d-flex list-unstyled">
                         <li class="d-flex align-items-center">
-                            <small>Categoría: {{ turisticCenter.category.name }}</small>
+                            Categoría: {{ turisticCenter.category.name }}
                         </li>
                     </ul>
                     <ul class="d-flex list-unstyled">
                         <li class="d-flex align-items-center me-3">
-                            <small>Por: {{ turisticCenter.user.name + ' ' + turisticCenter.user.surname }}</small>
+                            Por: {{ turisticCenter.user.name + ' ' + turisticCenter.user.surname }}
                         </li>
                     </ul>
-                    <button type="button" class="btn btn-outline-light mb-4">Agregar al viaje</button>
+                    <button (click)="getTrips(turisticCenter._id)" type="button" class="btn btn-primary mb-4"
+                        data-bs-toggle="modal" data-bs-target="#modalGetTrips">Agregar al
+                        viaje</button>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal get destinies -->
+<div class="modal fade" id="modalGetTrips" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-md">
+        <div *ngIf="tripsLenght == 0" class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Destinos</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h2 class="text-center">Aún no tienes viajes</h2>
+            </div>
+        </div>
+        <div *ngIf="tripsLenght > 0" class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Selecciona un viaje</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row justify-content-center g-4 m-0">
+                    <div *ngFor="let trip of trips">
+                        <div class="card card-cover h-100 overflow-hidden rounded-5">
+                            <div class="d-flex flex-column h-100 p-5 pb-3">
+                                <h2 class="pt-3 display-6 lh-1 fw-bold mb-3">{{ trip.name }}</h2>
+                                <ul class="d-flex list-unstyled mt-auto mb-3">
+                                    <li class="d-flex align-items-center">
+                                        Del {{ trip.startDate }} al {{ trip.endDate }}
+                                    </li>
+                                </ul>
+                                <button (click)="getTripId(trip._id)" type="button" class="btn btn-primary mb-2"
+                                    data-bs-toggle="modal" data-bs-target="#modalAddDestiny">Agregar a este
+                                    viaje</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal add trip -->
+<div class="modal fade" id="modalAddDestiny" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Nuevo destino</h5>
+                <button type="button" class="btn-close" data-bs-toggle="modal" data-bs-target="#modalGetTrips"></button>
+            </div>
+            <div class="modal-body">
+                <form #addTripForm="ngForm" (ngSubmit)="addDestiny()">
+                    <div class="mb-3">
+                        <label class="form-label">Fecha de inicio</label>
+                        <input [(ngModel)]="destiny.startDate" name="startDate" type="datetime-local"
+                            class="form-control" min="{{ today }}">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Fecha de final</label>
+                        <input [(ngModel)]="destiny.endDate" name="endDate" type="datetime-local" class="form-control"
+                            min="{{ today }}">
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                            data-bs-target="#modalGetTrips">Descartar</button>
+                        <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Agregar</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

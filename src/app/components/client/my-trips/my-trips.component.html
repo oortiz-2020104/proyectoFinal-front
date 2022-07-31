@@ -1,2 +1,166 @@
 <app-navbar></app-navbar>
-<p>my-trips works!</p>
+
+<div class="container px-4 mx-auto py-5">
+    <h2 class="pb-2 border-bottom">Mis viajes</h2>
+
+    <div class="d-flex flex-wrap">
+        <button type="button" class="btn btn-success m-2" data-bs-toggle="modal" data-bs-target="#modalAddTrip">Nuevo
+            viaje</button>
+
+        <div class="input-group m-2 flex-nowrap" style="width: 300px;">
+            <span class="input-group-text">Nombre</span>
+            <input [(ngModel)]="searchTrip" type="text" class="form-control">
+        </div>
+    </div>
+
+    <div class="row row-cols-1 row-cols-lg-3 justify-content-center g-4 m-0">
+        <div *ngFor="let trip of trips | searchTrip: searchTrip" class="col">
+            <div class="card card-cover h-100 overflow-hidden rounded-5 ">
+
+                <div class="d-flex flex-column h-100 p-5 pb-3">
+                    <h2 class="pt-3 display-6 lh-1 fw-bold mb-3">{{ trip.name }}</h2>
+                    <ul class="d-flex list-unstyled mt-auto mb-3">
+                        <li class="d-flex align-items-center">
+                            Del {{ trip.startDate }} al {{ trip.endDate }}
+                        </li>
+                    </ul>
+                    <button (click)="getDestinies(trip._id)" type="button" class="btn btn-primary mb-2"
+                        data-bs-toggle="modal" data-bs-target="#modalGetDestinies">Ver
+                        destinos</button>
+                    <div class="btn-group d-flex" role="group">
+                        <button (click)="getTrip(trip._id)" class="btn btn-warning flex-grow-1"
+                            data-bs-toggle="offcanvas" data-bs-target="#offcanvasGetTrip"
+                            aria-controls="offcanvasGetTrip">Editar</button>
+                        <button (click)="deleteTrip(trip._id)" class="btn btn-danger">Eliminar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal get destinies -->
+<div class="modal fade" id="modalGetDestinies" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+        <div *ngIf="destiniesLenght == 0" class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Destinos</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h2 class="text-center">Aún no tienes destinos en este viaje</h2>
+            </div>
+        </div>
+        <div *ngIf="destiniesLenght > 0" class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Destinos</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex flex-wrap align-items-stretch justify-content-center">
+                    <div *ngFor="let destiny of destinies" class="card card-cover h-100 overflow-hidden rounded-5 m-2"
+                        style="max-width: 350px;">
+                        <div class="d-flex flex-column h-100 p-5 pb-3">
+                            <div>
+                                <img *ngIf="destiny.turisticCenter.hasOwnProperty('image') == false"
+                                    src="../../../../assets/dummy_400x200_ffffff_cccccc_no-image.png"
+                                    class="img-fluid rounded" style="max-height: 200px;">
+                                <img *ngIf="destiny.turisticCenter.image" src="{{ uri + destiny.turisticCenter.image }}"
+                                    crossorigin="anonymous" class="img-fluid rounded" style="max-height: 200px;">
+                            </div>
+                            <h2 class="pt-3 display-6 lh-1 fw-bold mb-3">{{ destiny.turisticCenter.name }}</h2>
+
+                            <ul class="d-flex list-unstyled">
+                                <li class="d-flex align-items-center">
+                                    <a class="text-break" href="{{ destiny.turisticCenter.link }}" target="_blank"
+                                        rel="noopener noreferrer">{{
+                                        destiny.turisticCenter.link }}</a>
+                                </li>
+                            </ul>
+
+                            <ul class="d-flex list-unstyled mt-auto mb-1">
+                                <li class="d-flex align-items-center">
+                                    Desde el {{ destiny.startDate }} al {{ destiny.endDate }}
+                                </li>
+                            </ul>
+                            <ul class="d-flex list-unstyled mt-auto mb-1">
+                                <li class="d-flex align-items-center">
+                                    Precio: Q{{ destiny.turisticCenter.price }}
+                                </li>
+                            </ul>
+
+                            <hr>
+                            <ul class="d-flex list-unstyled">
+                                <li class="d-flex align-items-center">
+                                    Departamento: {{ destiny.turisticCenter.department.name }}
+                                </li>
+                            </ul>
+                            <ul class="d-flex list-unstyled">
+                                <li class="d-flex align-items-center">
+                                    Categoría: {{ destiny.turisticCenter.category.name }}
+                                </li>
+                            </ul>
+                            <div (click)="deleteDestiny(destiny._id)" class="btn-group d-flex" role="group">
+                                <button class="btn btn-danger">Eliminar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal add trip -->
+<div class="modal fade" id="modalAddTrip" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Nuevo viaje</h5>
+                <button type="button" class="btn-close" data-bs-toggle="modal" data-bs-target="#modalGetRooms"></button>
+            </div>
+            <div class="modal-body">
+                <form #addTripForm="ngForm" (ngSubmit)="addTrip(addTripForm)">
+                    <div class="mb-3">
+                        <label class="form-label">Nombre</label>
+                        <input [(ngModel)]="trip.name" name="name" type="text" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Fecha de inicio</label>
+                        <input [(ngModel)]="trip.startDate" name="startDate" type="datetime-local" class="form-control"
+                            min="{{ today }}">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Fecha de final</label>
+                        <input [(ngModel)]="trip.endDate" name="endDate" type="datetime-local" class="form-control"
+                            min="{{ today }}">
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Descartar</button>
+                        <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Agregar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Offcanvas get trip -->
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasGetTrip" aria-labelledby="offcanvasGetTrip">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Editar viaje</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <form (ngSubmit)="updateTrip()" *ngIf="tripGetData">
+            <div class="mb-3">
+                <label class="form-label">Nombre</label>
+                <input [(ngModel)]="tripGetData.name" name="name" type="text" class="form-control">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="offcanvas">Descartar cambios</button>
+                <button type="submit" class="btn btn-primary" data-bs-dismiss="offcanvas">Actualizar cambios</button>
+            </div>
+        </form>
+    </div>
+</div>

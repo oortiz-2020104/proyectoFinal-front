@@ -58,4 +58,20 @@ export class DepartmentRestService {
       }
     );
   }
+
+  //* Contribuidor ---------------------------------------------------------------------------------------
+  getDepartmentsOnlyContributor() {
+    return this.http.get(environment.baseUrl + 'department/getDepartments_OnlyContributor', {
+      headers: this.httpOptions,
+    });
+  }
+
+  //* Usuario registrado ---------------------------------------------------------------------------------------
+  getDepartmentsOnlyClient() {
+    return this.http.get(environment.baseUrl + 'department/getDepartments_OnlyClient', {
+      headers: this.httpOptions,
+    });
+  }
+
+  //* Usuario no registrado ---------------------------------------------------------------------------------------
 }

@@ -1,15 +1,15 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'searchTuristicCenterDepartment',
+  name: 'searchTuristicCenterCategory',
 })
-export class SearchTuristicCenterDepartmentPipe implements PipeTransform {
+export class SearchTuristicCenterCategoryPipe implements PipeTransform {
   transform(turisticsCenters: any, searchTuristicCenter: any) {
     if (searchTuristicCenter == undefined) {
       return turisticsCenters;
     } else {
       return turisticsCenters.filter((turisticCenter: any) => {
-        return turisticCenter.department.name
+        return turisticCenter.category.name
           .toLowerCase()
           .includes(searchTuristicCenter.toLowerCase());
       });

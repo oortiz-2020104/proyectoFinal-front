@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
 <div class="text-center m-3">
-    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAddUser">Agregar usuario</button>
+    <button class="btn btn-success m-1" data-bs-toggle="modal" data-bs-target="#modalAddUser">Agregar usuario</button>
     <div class="input-group mx-auto m-1" style=" width: 25vw;">
         <span class="input-group-text">Nombre de usuario</span>
         <input [(ngModel)]="searchUser" type="text" class="form-control">
@@ -12,8 +12,8 @@
         <img *ngIf="user.hasOwnProperty('image') == false"
             src="../../../../assets/dummy_2000x1500_ffffff_cccccc_-no-image.jpg" class="img-fluid rounded"
             style="height: 20rem; width: 20rem;">
-        <img *ngIf="user.image" src="http://localhost:3200/user/getImage/{{ user.image }}" crossorigin="anonymous"
-            class="img-fluid rounded" style="max-height: 20rem; max-width: 20rem;">
+        <img *ngIf="user.image" src="{{ uri + user.image }}" crossorigin="anonymous" class="img-fluid rounded"
+            style="max-height: 20rem; max-width: 20rem;">
 
         <div class="card-body">
             <h5 class="card-title">{{ user.username }}</h5>
@@ -27,7 +27,8 @@
             <div *ngIf="user.role === 'CLIENT' || user.role === 'CONTRIBUTOR'" class="btn-group d-flex" role="group">
                 <button (click)="getUserAdmin(user._id)" class="btn btn-warning flex-grow-1" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasGetUser" aria-controls="offcanvasGetUser">Editar</button>
-                <button (click)="deleteUserAdmin(user._id)" class="btn btn-danger">Eliminar</button>
+                <button *ngIf="user.role === 'CLIENT'" (click)="deleteUserAdmin(user._id)"
+                    class="btn btn-danger">Eliminar</button>
             </div>
         </div>
     </div>

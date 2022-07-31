@@ -1,11 +1,17 @@
 <app-navbar></app-navbar>
 <div class="text-center m-3">
-    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAddDepartment">Agregar
+    <button class="btn btn-success m-1" data-bs-toggle="modal" data-bs-target="#modalAddDepartment">Agregar
         departamento</button>
+
+    <div class="input-group mx-auto m-1" style="min-width: 115.7px; width: 20vw;">
+        <span class="input-group-text">Nombre</span>
+        <input [(ngModel)]="searchDepartment" type="text" class="form-control" aria-describedby="btnSearch">
+    </div>
 </div>
 <hr>
 <div class="row justify-content-center px-4">
-    <div *ngFor="let department of departments" class="card m-2" style="width: 18rem;">
+    <div *ngFor="let department of departments | searchDepartment: searchDepartment" class="card m-2"
+        style="width: 18rem;">
         <div class="card-body">
             <h5 class="card-title">{{ department.name }}</h5>
             <p class="card-subtitle mb-2 text-muted fst-italic">{{ department._id }}</p>
@@ -29,7 +35,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form (ngSubmit)="addUserAdmin(addDepartmentForm)" #addDepartmentForm="ngForm">
+                <form (ngSubmit)="addDepartment(addDepartmentForm)" #addDepartmentForm="ngForm">
                     <div class="mb-3">
                         <label class="form-label">Nombre</label>
                         <input [(ngModel)]="department.name" name="name" type="text" class="form-control">

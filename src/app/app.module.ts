@@ -18,6 +18,12 @@ import { SearchTuristicCenterNamePipe } from './pipes/turisticCenter/search-turi
 import { SearchTuristicCenterDepartmentPipe } from './pipes/turisticCenter/search-turistic-center-department.pipe';
 import { CategoriesComponent } from './components/admin/categories/categories.component';
 import { DepartmentsComponent } from './components/admin/departments/departments.component';
+import { SearchCategoryPipe } from './pipes/category/search-category.pipe';
+import { SearchDepartmentPipe } from './pipes/department/search-department.pipe';
+import { MyContributionsComponent } from './components/contributor/my-contributions/my-contributions.component';
+import { ExploreComponent } from './components/client/explore/explore.component';
+import { SearchTuristicCenterCategoryPipe } from './pipes/turisticCenter/search-turistic-center-category.pipe';
+import { MyTripsComponent } from './components/client/my-trips/my-trips.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +40,13 @@ import { DepartmentsComponent } from './components/admin/departments/departments
     SearchTuristicCenterNamePipe,
     SearchTuristicCenterDepartmentPipe,
     CategoriesComponent,
-    DepartmentsComponent
+    DepartmentsComponent,
+    SearchCategoryPipe,
+    SearchDepartmentPipe,
+    MyContributionsComponent,
+    ExploreComponent,
+    SearchTuristicCenterCategoryPipe,
+    MyTripsComponent
   ],
   imports: [
     BrowserModule,

@@ -26,7 +26,7 @@ export class DepartmentsComponent implements OnInit {
   departments: any;
   departmentGetData: any;
 
-  addUserAdmin(addDepartmentForm: any) {
+  addDepartment(addDepartmentForm: any) {
     this.departmentRest.addDepartment(this.department).subscribe({
       next: (res: any) => {
         Swal.fire({

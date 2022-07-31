@@ -18,10 +18,10 @@
                 </li>
 
                 <li class="nav-item" *ngIf="token && userData.role == 'CLIENT'">
-                    <a class="nav-link" routerLink="">Mis rutas</a>
+                    <a class="nav-link" routerLink="/myTrips">Mis viajes</a>
                 </li>
                 <li class="nav-item" *ngIf="token && userData.role == 'CLIENT'">
-                    <a class="nav-link" routerLink="">Explorar</a>
+                    <a class="nav-link" routerLink="/explore">Explorar</a>
                 </li>
 
                 <li class="nav-item" *ngIf="token && userData.role == 'ADMIN'">
@@ -38,7 +38,7 @@
                 </li>
 
                 <li class="nav-item" *ngIf="token && userData.role == 'CONTRIBUTOR'">
-                    <a class="nav-link" routerLink="">Mis contribuciones</a>
+                    <a class="nav-link" routerLink="/contributor/myContributions">Mis contribuciones</a>
                 </li>
             </ul>
 

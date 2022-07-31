@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserModel } from 'src/app/models/user.model';
 import { UserRestService } from 'src/app/services/user/user-rest.service';
+import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -16,6 +17,9 @@ export class UsersComponent implements OnInit {
   ngOnInit(): void {
     this.getUsersAdmin();
   }
+
+  uri: string = environment.baseUrl + 'user/getImage/';
+
   searchUser: string = '';
 
   user: UserModel;

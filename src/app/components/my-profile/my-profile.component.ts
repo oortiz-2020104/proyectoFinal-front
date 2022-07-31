@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { UserRestService } from 'src/app/services/user/user-rest.service';
 
@@ -11,7 +12,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./my-profile.component.css'],
 })
 export class MyProfileComponent implements OnInit {
-  constructor(private userRest: UserRestService) {}
+  constructor(private userRest: UserRestService, private router: Router) {}
 
   ngOnInit(): void {
     this.myProfile();
@@ -131,6 +132,8 @@ export class MyProfileComponent implements OnInit {
               icon: 'success',
               title: res.message,
             });
+            localStorage.clear();
+            this.router.navigateByUrl('/home');
           },
           error: (err) => {
             Swal.fire({
@@ -139,7 +142,6 @@ export class MyProfileComponent implements OnInit {
             });
           },
         });
-        localStorage.clear();
       }
     });
   }

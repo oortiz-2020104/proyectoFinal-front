@@ -17,12 +17,12 @@
                             <h5>{{ userGetData.name }} {{ userGetData.surname }}</h5>
                             <p>{{ userGetData.username }}</p>
 
-                            <span *ngIf="userGetData.role == 'CLIENT' || userGetData.role == 'HOTELADMIN'">
+                            <span *ngIf="userGetData.role == 'CLIENT' || userGetData.role == 'CONTRIBUTOR'">
                                 <i (click)="getProfile()" data-bs-toggle="offcanvas"
                                     data-bs-target="#offcanvasGetProfile"
                                     class="fa-solid fa-pen-to-square m-1 mb-5 text-warning icon-profile"
                                     style="font-size: 1.5rem;"></i>
-                                <i (click)="deleteProfile()" class="fa-solid fa-trash m-1 text-danger mb-5 icon-profile"
+                                <i *ngIf="userGetData.role == 'CLIENT'" (click)="deleteProfile()" class="fa-solid fa-trash m-1 text-danger mb-5 icon-profile"
                                     style="font-size: 1.5rem;"></i>
                             </span>
                             <i data-bs-toggle="modal" data-bs-target="#modalUploadImage"
